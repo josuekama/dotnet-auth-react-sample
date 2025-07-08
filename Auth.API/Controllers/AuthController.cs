@@ -19,12 +19,12 @@ public class AuthController : ControllerBase
     public IActionResult Login([FromBody] LoginRequest request)
     {
         if (request == null || string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
-            return BadRequest(new { message = "Kullanıcı adı ve şifre zorunludur." });
+            return BadRequest(new { message = "Username and password are required." });
 
         var result = _authService.Authenticate(request);
 
         if (result == null)
-            return Unauthorized(new { message = "Geçersiz kullanıcı adı veya şifre." });
+            return Unauthorized(new { message = "Invalid username or password." });
 
         return Ok(result);
     }
@@ -33,13 +33,13 @@ public class AuthController : ControllerBase
     public IActionResult Register([FromBody] RegisterRequest request)
     {
         if (request == null || string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
-            return BadRequest(new { message = "Kullanıcı adı ve şifre zorunludur." });
+            return BadRequest(new { message = "Username and password are required." });
 
         var success = _authService.Register(request);
 
         if (!success)
-            return Conflict(new { message = "Kullanıcı zaten mevcut." });
+            return Conflict(new { message = "User already exists." });
 
-        return Ok(new { message = "Kayıt başarılı." });
+        return Ok(new { message = "Registration successful." });
     }
 }
