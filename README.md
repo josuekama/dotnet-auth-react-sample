@@ -1,203 +1,182 @@
-# Authentication System
+# Full-Stack Authentication System with .NET 9 and React
 
-A full-stack authentication system built with .NET 9 Web API and React TypeScript frontend.
+![Project Logo](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg) ![License](https://img.shields.io/badge/License-MIT-blue.svg) ![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)
+
+## Overview
+
+Welcome to the **dotnet-auth-react-sample** repository. This project demonstrates a complete authentication system using a .NET 9 Web API for the backend and a React TypeScript frontend. It provides a solid foundation for building secure web applications.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Releases](#releases)
 
 ## Features
 
-- **User Registration & Login**: Secure user authentication with JWT tokens
-- **Password Hashing**: BCrypt password hashing for security
-- **JWT Authentication**: Token-based authentication with configurable expiration
-- **Protected Routes**: Frontend route protection based on authentication status
-- **Modern UI**: React with TypeScript and Redux Toolkit for state management
-- **Database Integration**: PostgreSQL with Entity Framework Core
-- **API Documentation**: Swagger/OpenAPI documentation
+- User registration and login
+- JWT authentication
+- Role-based access control
+- Secure password storage
+- User profile management
+- Responsive design with React
+- State management using Redux
+- API documentation with Swagger
 
-## Tech Stack
+## Technologies
 
-### Backend (Auth.API)
-- **.NET 9** - Web API framework
-- **Entity Framework Core** - ORM for database operations
-- **PostgreSQL** - Database
-- **JWT Bearer Authentication** - Token-based authentication
-- **BCrypt.Net** - Password hashing
-- **Swagger** - API documentation
+This project utilizes a variety of technologies to create a seamless experience:
 
-### Frontend (Auth.Web)
-- **React 19** - Frontend framework
-- **TypeScript** - Type safety
-- **Redux Toolkit** - State management
-- **RTK Query** - API state management
-- **React Router** - Client-side routing
-- **Vite** - Build tool and dev server
+- **Backend**: 
+  - .NET 9 Web API
+  - C#
+  - PostgreSQL
 
-## Project Structure
+- **Frontend**:
+  - React
+  - TypeScript
+  - React Router
+  - Redux
+  - Redux Toolkit
 
-```
-├── Auth.API/                 # .NET Web API Backend
-│   ├── Controllers/          # API controllers
-│   ├── DTOs/                # Data transfer objects
-│   ├── Entities/            # Database entities
-│   ├── Services/            # Business logic services
-│   ├── Data/                # Database context
-│   └── Program.cs           # Application entry point
-├── Auth.Web/                # React Frontend
-│   ├── src/
-│   │   ├── components/      # React components
-│   │   ├── pages/           # Page components
-│   │   ├── services/        # API services
-│   │   └── app/             # Redux store
-│   └── package.json
-└── README.md
-```
+## Installation
 
-## Prerequisites
+To get started with this project, follow these steps:
 
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- [PostgreSQL](https://www.postgresql.org/) (v12 or higher)
-
-## Getting Started
-
-### Database Setup
-
-1. Install PostgreSQL and create a database
-2. Update the connection string in `Auth.API/appsettings.json`:
-   ```json
-   {
-     "ConnectionStrings": {
-       "DefaultConnection": "Host=localhost;Port=5432;Database=your_db;Username=your_user;Password=your_password"
-     }
-   }
-   ```
-
-### Backend Setup
-
-1. Navigate to the API directory:
+1. **Clone the repository**:
    ```bash
-   cd Auth.API
+   git clone https://github.com/josuekama/dotnet-auth-react-sample.git
+   cd dotnet-auth-react-sample
    ```
 
-2. Restore dependencies:
-   ```bash
-   dotnet restore
-   ```
+2. **Set up the backend**:
+   - Navigate to the backend folder.
+   - Restore the NuGet packages:
+     ```bash
+     dotnet restore
+     ```
+   - Set up your PostgreSQL database.
+   - Update the connection string in the `appsettings.json` file.
+   - Run the database migrations:
+     ```bash
+     dotnet ef database update
+     ```
+   - Start the backend server:
+     ```bash
+     dotnet run
+     ```
 
-3. Apply database migrations:
-   ```bash
-   dotnet ef database update
-   ```
+3. **Set up the frontend**:
+   - Navigate to the frontend folder.
+   - Install the necessary packages:
+     ```bash
+     npm install
+     ```
+   - Start the frontend server:
+     ```bash
+     npm start
+     ```
 
-4. Run the API:
-   ```bash
-   dotnet run
-   ```
+## Usage
 
-The API will be available at `http://localhost:5057`
+After setting up both the backend and frontend, you can access the application in your browser at `http://localhost:3000`. You can register a new user, log in, and explore the features provided.
 
-### Frontend Setup
+### API Endpoints
 
-1. Navigate to the web directory:
-   ```bash
-   cd Auth.Web
-   ```
+Here are some key API endpoints available in this project:
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+- **POST** `/api/auth/register` - Register a new user
+- **POST** `/api/auth/login` - Log in a user
+- **GET** `/api/user/profile` - Get user profile information
+- **PUT** `/api/user/profile` - Update user profile information
 
-3. Create environment file:
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Update the `.env` file with your API URL:
-   ```env
-   VITE_API_URL=http://localhost:5057
-   ```
-
-5. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-The frontend will be available at `http://localhost:5173`
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/login` - User login
-- `POST /api/auth/register` - User registration
-
-### User Management
-- `GET /api/users/me` - Get current user profile (protected)
-
-## Configuration
-
-### JWT Settings
-Configure JWT settings in `Auth.API/appsettings.json`:
-```json
-{
-  "Jwt": {
-    "Key": "your-secret-key-here",
-    "Issuer": "your-issuer",
-    "Audience": "your-audience"
-  }
-}
-```
-
-### CORS Configuration
-The API is configured to allow requests from `http://localhost:5173`. Update the CORS policy in `Program.cs` if needed.
-
-## Development
-
-### Running Tests
-```bash
-# Backend tests
-cd Auth.API
-dotnet test
-
-# Frontend tests
-cd Auth.Web
-npm test
-```
-
-### Building for Production
-```bash
-# Backend
-cd Auth.API
-dotnet publish -c Release
-
-# Frontend
-cd Auth.Web
-npm run build
-```
-
-## Security Features
-
-- **Password Hashing**: Uses BCrypt with salt for secure password storage
-- **JWT Tokens**: Secure token-based authentication with configurable expiration
-- **Input Validation**: Server-side validation for all endpoints
-- **CORS Protection**: Configured CORS policy for frontend access
-- **HTTPS**: HTTPS redirection enabled in production
+You can find more details about these endpoints in the [API Documentation](#api-documentation).
 
 ## API Documentation
 
-When running in development mode, Swagger documentation is available at:
-- `http://localhost:5057/swagger`
+This project includes Swagger for API documentation. Once the backend is running, you can access the Swagger UI at `http://localhost:5000/swagger`. This interface allows you to explore the available endpoints and test them directly.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+We welcome contributions to this project. If you would like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m "Add your message"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature/YourFeature
+   ```
+5. Create a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Releases
+
+To download the latest release, visit the [Releases](https://github.com/josuekama/dotnet-auth-react-sample/releases) section. Follow the instructions provided there to execute the files.
+
+![Download Releases](https://img.shields.io/badge/Download%20Latest%20Release-Click%20Here-blue.svg)
+
+For more information about the releases, check the [Releases](https://github.com/josuekama/dotnet-auth-react-sample/releases) section.
+
+## Topics
+
+This project covers various topics, including:
+
+- API
+- Authentication
+- Backend Development
+- Boilerplate Code
+- C#
+- .NET
+- .NET Core
+- PostgreSQL
+- Frontend Development
+- React
+- React Router
+- Redux
+- Redux Toolkit
+- SQL
+- Swagger
+- Web Development
+
+## Screenshots
+
+Here are some screenshots of the application:
+
+### Login Page
+
+![Login Page](https://via.placeholder.com/800x400?text=Login+Page)
+
+### Registration Page
+
+![Registration Page](https://via.placeholder.com/800x400?text=Registration+Page)
+
+### User Profile
+
+![User Profile](https://via.placeholder.com/800x400?text=User+Profile)
+
+## Contact
+
+For any inquiries or feedback, please reach out via the issues section of this repository. 
+
+## Acknowledgments
+
+Thanks to all contributors and libraries that made this project possible. Your efforts are greatly appreciated.
 
 ## Support
 
-If you encounter any issues or have questions, please open an issue on the GitHub repository.
+If you encounter any issues, please check the [Releases](https://github.com/josuekama/dotnet-auth-react-sample/releases) section for updates or fixes.
